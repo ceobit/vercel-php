@@ -1,4 +1,4 @@
-const cgi = require('./../../../dist/launchers/cgi');
+const cgi = require('../../../public/launchers/cgi');
 
 test('create CGI request', () => {
   const request = {

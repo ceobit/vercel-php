@@ -1,4 +1,4 @@
-const builder = require('./../../dist/index');
+const builder = require('../../public');
 
 test('it should failed using now dev', async () => {
   const mockLog = console.log = jest.fn();
