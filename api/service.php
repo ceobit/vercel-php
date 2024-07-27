@@ -282,10 +282,46 @@ class service
         exit();
     }
 
-    protected function getOffices()
-    {
-        return $this->httpRequest('deliverypoints', $this->requestData);
-    }
+  protected function getOffices()
+  {
+          $res = $this->httpRequest('deliverypoints', $this->requestData);
+          if ($json = json_decode($res['result'], true)) {
+              $json = self::updateOffice($json);
+              $res['result'] = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES| JSON_PRESERVE_ZERO_FRACTION);
+          }
+          return $res;
+  }
+
+  protected function updateOffice(array $data): array
+  {
+          $ret = array();
+          foreach ($data as $item) {
+              $ret[] = array(
+                  'code' => $item['code'],
+                  'name' => $item['name'],
+                  'work_time' => $item['work_time'],
+                  'type' => $item['type'],
+                  'is_dressing_room' => $item['is_dressing_room'],
+                  'have_cashless' => $item['have_cashless'],
+                  'have_cash' => $item['have_cash'],
+                  'allowed_cod' => $item['allowed_cod'],
+                  'weight_min' => (float)$item['weight_min'],
+                  'weight_max' => (float)$item['weight_max'],
+                  //'dimensions' => $item['dimensions'],
+                  'location' => array(
+                      'country_code' => $item['location']['country_code'],
+                      'region' => $item['location']['region'],
+                      'city_code' => $item['location']['city_code'],
+                      'city' => $item['location']['city'],
+                      'postal_code' => $item['location']['postal_code'],
+                      'longitude' => $item['location']['longitude'],
+                      'latitude' => $item['location']['latitude'],
+                      'address' => $item['location']['address'],
+                  )
+              );
+          }
+          return $ret;
+  }
 
     protected function calculate()
     {
