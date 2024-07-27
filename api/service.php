@@ -1,9 +1,4 @@
 <?php
-
-header('Access-Control-Allow-Origin: *'); // Allow from any origin
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS'); // Allow specific HTTP methods
-header('Access-Control-Allow-Headers: Content-Type, Authorization'); // Allow specific headers
-
 $service = new service(/**
  * Вставьте свой аккаунт\идентификатор для интеграции
  * Put your account for integration here
